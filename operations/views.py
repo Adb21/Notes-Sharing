@@ -1,8 +1,10 @@
+from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.validators import ValidationError
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
@@ -27,7 +29,12 @@ class NotesCRUDView(ModelViewSet):
         uid = self.request.GET.get("uid")
         if uid:
             # Add Validations
+            current_time = timezone.now()
+
             queryset = Notes.objects.filter(shareble_id=uid).first()
+            if queryset and queryset.expiry_at < current_time:
+                raise ValidationError({"error": "sharable id expired"})
+
         else:
             queryset = Notes.objects.filter(created_by=user).order_by("created_at")
         return queryset
