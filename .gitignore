@@ -64,3 +64,4 @@ ENV/
 notes.txt
 static/
 staticfiles/
+db.sqlite3
