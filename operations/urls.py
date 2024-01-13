@@ -1,13 +1,13 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from operations.views import NoteSharingAPIView, NotesListCreateAPIView
+from operations.views import NotesCRUDView, NoteSharingView
 
 router = DefaultRouter()
 
-router.register(r"", NotesListCreateAPIView, basename="notes-list-create")
+router.register(r"", NotesCRUDView, basename="note")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("<int:id>/share", NoteSharingAPIView.as_view(), name="note-share"),
+    path("<int:id>/share", NoteSharingView.as_view(), name="note-share"),
 ]
