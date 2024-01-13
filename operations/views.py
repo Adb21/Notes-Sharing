@@ -11,7 +11,9 @@ from operations.serializers import NoteSerializer
 
 
 # Create your views here.
-class NotesListCreateAPIView(ModelViewSet):
+class NotesCRUDView(ModelViewSet):
+    """Note CRUD operation View"""
+
     queryset = Notes.objects.none()
     serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated]
@@ -50,7 +52,9 @@ class NotesListCreateAPIView(ModelViewSet):
         )
 
 
-class NoteSharingAPIView(APIView):
+class NoteSharingView(APIView):
+    """Note Sharing View"""
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request, id):
