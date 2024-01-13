@@ -1,5 +1,8 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -18,3 +21,13 @@ class Notes(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    @classmethod
+    def generate_sharable_id(cls, instance):
+        current_time = timezone.now()
+        if instance.shareble_id and current_time < instance.expiry_at:
+            return instance.shareble_id
+        instance.shareble_id = uuid.uuid4()
+        instance.expiry_at = current_time + timezone.timedelta(hours=4)
+        instance.save()
+        return instance.shareble_id
