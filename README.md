@@ -18,7 +18,7 @@
  - Install pip requirenemtns (**pip install -r requirnemets.txt**)
  - add .env (check env variables from .env.example)
  - Default Database is SQLite3 on env varaible **DATABASE_CHOICE=DEFAULT**
- - If want to use MySQL, then set DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT in env
+ - If want to use MySQL, then change DATABASE_CHOICE=MySQL and set DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT in env
  - If you’re on Linux, chances are you might run into some error while trying to install mysqlclient : sudo apt install python3-dev libmysqlclient-dev
  - To migrate base tables run command : **python3 manage.py migrate**
  - To run server : **python3 manage.py runserver**
