@@ -10,19 +10,11 @@ class Notes(models.Model):
     """Note Model"""
 
     title = models.CharField(max_length=255)
+    content = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
     shareble_id = models.UUIDField(null=True, blank=True)
     expiry_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self) -> str:
         return self.title
-
-
-class NoteContents(models.Model):
-    """Note Contents Model"""
-
-    note = models.ForeignKey(Notes, on_delete=models.CASCADE)
-    content = models.TextField()
-
-    def __str__(self) -> str:
-        return self.note.title
